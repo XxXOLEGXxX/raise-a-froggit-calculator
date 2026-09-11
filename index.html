@@ -1,5 +1,5 @@
 <head>
-	<title>DONKEY KONG DONKEY KONG BEATS HIS CHEST TO THE SONG SO BE STRONG AND LEAD THE DK CREW TO THE NEW DAWN TAKE THE FRUIT DON'T THINK TWICE TAKE A BITE OF THIS LIFE AIN'T IT NICE THE ISLE FOREVER FOR PRIMATES</title>
+	<title>Raise A Froggit Calculator</title>
 	<style>
 	@font-face {
 		font-family: 'Determination';
@@ -10,6 +10,7 @@
 		font-family: 'Determination';
 		font-size: 20px;
 		color: white;
+		background-color: rgba(0,0,0,0.5);
 	}
 	
 	div, td {
@@ -19,8 +20,8 @@
 	button {
 		height: 50px;
 		width: 150px;
-		background-color: black;
 	}
+	
 	</style>
 	<audio id="khanmusic" loop>
 		<source src="khan.mp3" type="audio/mp3">
@@ -122,7 +123,7 @@
 			<td id="awakening"></td>
 		<tr>
 	</table>
-	<div id="khan" onclick="document.getElementById('khanmusic').play(); document.body.style['background-image'] = 'url(khan-spin.gif)'; document.getElementById('khan').remove(); khan = true" style="border: 0px solid; height: 114px; width: 480px; background-image: url(khan-spin.gif)"></div>
+	<div id="khan" onclick="titleKeeper='一度闘った相手にはもう絶っ～対に　負けんのだァァァァ－っ！！   イーッヒッヒ…おまえには勝てんよ！   ウッシャァァァァッ！   絶っ～対に！　負けなあああああいィィィ   おまえの攻撃のパターンは全部憶えた…   俺の名はカーン…　アヌビスの暗示のスタンド使いッ！   …何度やっても…同じ事だ…   闘うたびにオレは強くなる…   '; document.getElementById('khanmusic').play(); document.body.style['background-image'] = 'url(khan-spin.gif)'; document.getElementById('khan').remove(); khan = true" style="border: 0px solid; height: 114px; width: 480px; background-image: url(khan-spin.gif)"></div>
 	<script>
 		let listOfSouls = {
 			DETERMINATION: {
@@ -133,6 +134,7 @@
 					DEF: 1,
 					CHARGE: 1,
 					HEAL: 0,
+					MAGIC: 0,
 					
 				},
 				Awakening: {
@@ -141,8 +143,10 @@
 					SPD: 1.1,
 					DEF: 1.5,
 					CHARGE: 1,
-					HEAL: 0
-				}
+					HEAL: 0,
+					MAGIC: 0,
+				},
+				COLOR: "red"
 			},
 			BRAVERY: {
 				Base: {
@@ -151,7 +155,8 @@
 					SPD: 1,
 					DEF: 1,
 					CHARGE: 1,
-					HEAL: 0
+					HEAL: 0,
+					MAGIC: 0,
 				},
 				Awakening: {
 					HP: 1,
@@ -159,8 +164,10 @@
 					SPD: 0.8,
 					DEF: 0.75,
 					CHARGE: 1,
-					HEAL: 0
-				}
+					HEAL: 0,
+					MAGIC: 0,
+				},
+				COLOR: "orange"
 			},
 			JUSTICE: {
 				Base: {
@@ -169,7 +176,8 @@
 					SPD: 1.25,
 					DEF: 1,
 					CHARGE: 1,
-					HEAL: 0
+					HEAL: 0,
+					MAGIC: 0,
 				},
 				Awakening: {
 					HP: 1,
@@ -177,8 +185,10 @@
 					SPD: 1.25,
 					DEF: 1,
 					CHARGE: 1.5,
-					HEAL: 0
-				}
+					HEAL: 0,
+					MAGIC: 0,
+				},
+				COLOR: "yellow"
 			},
 			KINDNESS: {
 				Base: {
@@ -187,7 +197,8 @@
 					SPD: 1,
 					DEF: 1,
 					CHARGE: 1,
-					HEAL: 0
+					HEAL: 0,
+					MAGIC: 0,
 				},
 				Awakening: {
 					HP: 1,
@@ -195,8 +206,10 @@
 					SPD: 1,
 					DEF: 1.25,
 					CHARGE: 1,
-					HEAL: 0.03
-				}
+					HEAL: 0.03,
+					MAGIC: 0,
+				},
+				COLOR: "lime"
 			},
 			PATIENCE: {
 				Base: {
@@ -205,7 +218,8 @@
 					SPD: 1,
 					DEF: 1,
 					CHARGE: 1,
-					HEAL: 0
+					HEAL: 0,
+					MAGIC: 0,
 				},
 				Awakening: {
 					HP: 1,
@@ -213,8 +227,10 @@
 					SPD: 1,
 					DEF: 1.75,
 					CHARGE: 0.75,
-					HEAL: 0
-				}
+					HEAL: 0,
+					MAGIC: 0,
+				},
+				COLOR: "cyan"
 			},
 			INTEGRITY: {
 				Base: {
@@ -223,7 +239,8 @@
 					SPD: 1.1,
 					DEF: 1,
 					CHARGE: 1,
-					HEAL: 0
+					HEAL: 0,
+					MAGIC: 0,
 				},
 				Awakening: {
 					HP: 1,
@@ -231,8 +248,10 @@
 					SPD: 1.2,
 					DEF: 1,
 					CHARGE: 1,
-					HEAL: 0
-				}
+					HEAL: 0,
+					MAGIC: 0,
+				},
+				COLOR: "blue"
 			},
 			PERSEVERANCE: {
 				Base: {
@@ -241,7 +260,8 @@
 					SPD: 1.15,
 					DEF: 1,
 					CHARGE: 1,
-					HEAL: 0
+					HEAL: 0,
+					MAGIC: 0,
 				},
 				Awakening: {
 					HP: 1,
@@ -249,10 +269,55 @@
 					SPD: 1,
 					DEF: 3,
 					CHARGE: 1,
-					HEAL: 0
-				}
+					HEAL: 0,
+					MAGIC: 0,
+				},
+				COLOR: "magenta"
 			},
-			/*"average UTTD player's SOUL trait": {
+			FEAR: {
+				Base: {
+					HP: 1,
+					ATK: 1.25,
+					SPD: 1,
+					DEF: 1.5,
+					CHARGE: 1,
+					HEAL: 0,
+					MAGIC: 0,
+				},
+				Awakening: {
+					HP: 1,
+					ATK: 1.5,
+					SPD: 1.2,
+					DEF: 1.75,
+					CHARGE: 1,
+					HEAL: -0.05,
+					MAGIC: 0,
+				},
+				COLOR: "pink"
+			},
+			DETEMMIENATION: {
+				Base: {
+					HP: 1.05,
+					ATK: 1.07,
+					SPD: 1,
+					DEF: 0.8,
+					CHARGE: 1,
+					HEAL: 0,
+					MAGIC: 0,
+					
+				},
+				Awakening: {
+					HP: 1,
+					ATK: 1.1,
+					SPD: 1.5,
+					DEF: 1.5,
+					CHARGE: 1.5,
+					HEAL: 0.05,
+					MAGIC: 0,
+				},
+				COLOR: "lightcyan"
+			},
+			"average UTTD player's SOUL trait": {
 				Base: {
 					HP: 1.5,
 					ATK: 1.85625,
@@ -268,8 +333,9 @@
 					DEF: 1,
 					CHARGE: 1,
 					HEAL: 0.05
-				}
-			},*/
+				},
+				COLOR: "lightcyan"
+			},
 		}
 		
 		let listOfBodies = {
@@ -320,6 +386,8 @@
 			},
 		}
 		
+		let titleKeeper = "Raise A Froggit Calculator "
+		
 		let LEVEL = 30
 		
 		let khan = false
@@ -345,7 +413,7 @@
 		document.getElementById("rankawakening").innerHTML = ""
 		document.getElementById("soul").innerHTML = ""
 		document.getElementById("awakening").innerHTML = ""
-		let result = [0,"",0,""]
+		let result = [-(2**1023*1.999),"",-(2**1023*1.999),""]
 		let extraHTMLBullshit = ""
 		epicList = [[],[]]
 			for(let i=0;i<SOUL.length;i++){
@@ -389,10 +457,10 @@
 							if(!statToggle[4]) CHARGE = 1
 							if(!statToggle[5]) HEAL = 0
 							if(!statToggle[6]) MAGIC = 100
-							let methodScore = statToggle[12]==2?(HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100)/1701)**(((HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100))/6.85):statToggle[12]==1?HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100):(HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100)
-							if(methodScore>=result[0])
-								result[1] = `${set[0]}<br>`+(statToggle[8]?`Body: ${set[1]}<br>`:``)+(statToggle[9]?`Face: ${set[2]}<br>`:``)+(statToggle[10]?`Head: ${set[3]}<br>`:``)+`HP: ${HP}<br>ATK: ${Math.round(ATK)}<br>SPD: ${SPD}<br>DEF: ${DEF}<br>Damage Reduction: /${DEFMult}<br>Magic: ${MAGIC}<br>Charge Speed: ${CHARGE}<br>Regeneration: ${HEAL*100/(statToggle[11]?5:1)}%`+(HEAL?` (${HEAL*2000}% Extra ${statToggle[11]?"Total":""} HP)`:``)+`<br>`
-							result[0] = Math.max(result[0], methodScore)
+							let methodScore = statToggle[12]==2?(HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100)/1701/0.85)**(((HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100))/6.85):statToggle[12]==1?HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100):(HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100)
+							if(methodScore>=result[0]&&!isNaN(methodScore))
+								result[1] = `<span style='font-family: ${set[0]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}; color:${set[0]!="average UTTD player's SOUL trait"?listOfSouls[set[0]].COLOR:"white"}'>${set[0]}</span><br>`+(statToggle[8]?`Body: ${set[1]}<br>`:``)+(statToggle[9]?`Face: ${set[2]}<br>`:``)+(statToggle[10]?`Head: ${set[3]}<br>`:``)+`HP: ${roundThatShitUp(HP)}<br>ATK: ${Math.round(ATK)}<br>SPD: ${roundThatShitUp(SPD)}<br>DEF: ${roundThatShitUp(DEF)}<br>Damage Reduction: /${roundThatShitUp(DEFMult)}${DEF?` [/${roundThatShitUp(DEFMult*(DEF/100+1))}]`:``}<br>Magic: ${MAGIC}<br>Charge Speed: x${CHARGE}<br>Regeneration: ${roundThatShitUp(HEAL*100/(statToggle[11]?5:1))}%`+(HEAL?` (${roundThatShitUp(HEAL*2000)}% Extra ${statToggle[11]?"Total":""} HP)`:``)+`<br>`
+							if(!isNaN(methodScore)) result[0] = Math.max(result[0], methodScore)
 							HP *= listOfSouls[set[0]].Awakening.HP
 							ATK *= listOfSouls[set[0]].Awakening.ATK
 							SPD *= listOfSouls[set[0]].Awakening.SPD
@@ -409,28 +477,39 @@
 							if(!statToggle[4]) CHARGE = 1
 							if(!statToggle[5]) HEAL = 0
 							if(!statToggle[6]) MAGIC = 100
-							methodScore = statToggle[12]==2?(HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100)/1701)**(((HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100))/6.85):statToggle[12]==1?HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100):(HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100)
-							if(methodScore>=result[2])
-								result[3] = `${set[0]}'s Awakening<br>`+(statToggle[8]?`Body: ${set[1]}<br>`:``)+(statToggle[9]?`Face: ${set[2]}<br>`:``)+(statToggle[10]?`Head: ${set[3]}<br>`:``)+`HP: ${HP}<br>ATK: ${Math.round(ATK)}<br>SPD: ${SPD}<br>DEF: ${DEF}<br>Damage Reduction: /${DEFMult}<br>Magic: ${MAGIC}<br>Charge Speed: x${CHARGE}<br>Regeneration: ${HEAL*100/(statToggle[11]?5:1)}%`+(HEAL?` (${HEAL*2000}% Extra ${statToggle[11]?"Total":""} HP)`:``)+`<br>`
-							result[2] = Math.max(result[2], methodScore)
+							methodScore = statToggle[12]==2?(HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100)/1701/0.85)**(((HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100))/6.85):statToggle[12]==1?HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100):(HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100)
+							if(methodScore>=result[2]&&!isNaN(methodScore))
+								result[3] = `<span style='font-family: ${set[0]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}; color:${set[0]!="average UTTD player's SOUL trait"?listOfSouls[set[0]].COLOR:"white"}'>${set[0]}</span>'s Awakening<br>`+(statToggle[8]?`Body: ${set[1]}<br>`:``)+(statToggle[9]?`Face: ${set[2]}<br>`:``)+(statToggle[10]?`Head: ${set[3]}<br>`:``)+`HP: ${roundThatShitUp(HP)}<br>ATK: ${Math.round(ATK)}<br>SPD: ${roundThatShitUp(SPD)}<br>DEF: ${roundThatShitUp(DEF)}<br>Damage Reduction: /${roundThatShitUp(DEFMult)}${DEF?` [/${roundThatShitUp(DEFMult*(DEF/100+1))}]`:``}<br>Magic: ${MAGIC}<br>Charge Speed: x${CHARGE}<br>Regeneration: ${roundThatShitUp(HEAL*100/(statToggle[11]?5:1))}%`+(HEAL?` (${roundThatShitUp(HEAL*2000)}% Extra ${statToggle[11]?"Total":""} HP)`:``)+`<br>`
+							if(!isNaN(methodScore)) result[2] = Math.max(result[2], methodScore)
 						}	
 					}
 				}
-				epicList[0][i] = [set[0],result[0]/(statToggle[12]==2?1:statToggle[12]==1?1701:6.85)]
-				epicList[1][i] = [set[0],result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701:6.85)]
+				epicList[0][i] = [set[0],result[0]/(statToggle[12]==2?1:statToggle[12]==1?1701*0.85:6.85)]
+				epicList[1][i] = [set[0],result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701*0.85:6.85)]
 				epicList[0].sort((a, b) => b[1]-a[1]);
 				epicList[1].sort((a, b) => b[1]-a[1]);
-				document.getElementById("soul").innerHTML += result[1]+"Score: "+roundThatShitUp(result[0]/(statToggle[12]==2?1:statToggle[12]==1?1701:6.85))+"<br><br><br>"
-				document.getElementById("awakening").innerHTML += result[3]+"Score: "+roundThatShitUp(result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701:6.85))+"<br><br><br>"
-				result = [0,"",0,""]
+				document.getElementById("soul").innerHTML += result[1]+"Score: "+roundThatShitUp(result[0]/(statToggle[12]==2?1:statToggle[12]==1?1701*0.85:6.85))+"<br><br><br>"
+				document.getElementById("awakening").innerHTML += (result[3]==""?"[REDACTED]<br>"+(statToggle[8]?"Body: undefined<br>":"")+(statToggle[9]?"Face: undefined<br>":"")+(statToggle[10]?"Head: undefined<br>":"")+"HP: 666666<br>ATK: 66666<br>SPD: NaN<br>DEF: 66666<br>Damage Reduction: /NaN<br>Magic: NaN<br>Charge: xNaN<br>Regeneration: NaN%<br>":result[3])+"Score: "+(result[3]==""?"NaN":roundThatShitUp(result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701*0.85:6.85)))+"<br><br><br>"
+				result = [-(2**1023*1.999),"",-(2**1023*1.999),""]
 			}
 			for(let i=0;i<SOUL.length;i++){
-				document.getElementById("rank").innerHTML += i+1+"."+epicList[0][i][0]+" ["+roundThatShitUp(epicList[0][i][1])+"]<br>"
+				document.getElementById("rank").innerHTML += `<span style="font-family: ${epicList[0][i][0]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}; color: ${epicList[0][i][0]!="average UTTD player's SOUL trait"?listOfSouls[epicList[0][i][0]].COLOR:"white"}">`+(i+1)+"."+epicList[0][i][0]+" ["+roundThatShitUp(epicList[0][i][1])+"]</span><br>"
 			}
 			for(let i=0;i<SOUL.length;i++){
-				document.getElementById("rankawakening").innerHTML += "|| "+(i+1)+"."+epicList[1][i][0]+" ["+roundThatShitUp(epicList[1][i][1])+"]<br>"
+				document.getElementById("rankawakening").innerHTML += `<span style="font-family: ${epicList[1][i][0]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}; color:${epicList[1][i][0]!="average UTTD player's SOUL trait"?listOfSouls[epicList[1][i][0]].COLOR:"white"}">`+(i+1)+"."+epicList[1][i][0]+" ["+roundThatShitUp(epicList[1][i][1])+"]</span><br>"
 			}
-			document.getElementById("lol").innerHTML = "<p>Soul Trait Guide Thingy<br>DETERMINATION: Jack of all trades, has decent attacking power and decent health to take on attacks. Awakening grants it immense power and damage reduction, making it very powerful both offensively and defensively.<br>BRAVERY: Heavy hitter, has absurdly high attack. Awakening grants it an ability to essentially hit everything with a nuclear bomb at cost of being more vulnurable to attacks (lower defense, slower speed).<br>JUSTICE: Speedster, as decent attacking power and surprisingly high speed, making it really good at dodging things. Awakening it grants it even more speed and an ability to charge jumps faster, allowing it to dodge everything when things get dire. (also great for activities but shhhhh)<br>KINDNESS: FAT, has no other upsides beyond having highest HP out of all SOUL traits. Awakening it (surprisingly) grants it a bit of damage reduction and passive healing, giving it an even bigger survivability capability.<br>PATIENCE: Defensive Aggressor, has quite high health and higher attacking power. Awakening grants it good amount of attack and even higher defense than DETERMINATION, but it has slower charge speed, making it a bit risky to use in the middle of attack that can't be walked around.<br>INTEGRITY: Sweeper, has a bit more health, decent attacking power and some good speed, making it both tanky and strong enough to deliver hits. Awakening grants it really high speed and attack, granting it ability to maneveur and deal solid damage.<br>PERSEVERANCE: Tank, has quite high health and a bit higher attack and speed. Awakening it reduces its attacking capability, but turns any and all attacks sent at it into rubber toys that can barely deal any damage to it.</p>"
+			document.getElementById("lol").innerHTML = `<p>Soul Trait Guide Thingy<br>
+				<span style='color:red'>DETERMINATION</span>: Jack of all trades, has decent attacking power and decent health to take on attacks. Awakening grants it immense power and damage reduction, making it very powerful both offensively and defensively.<br>
+				<span style='color:orange'>BRAVERY</span>: Heavy hitter, has absurdly high attack. Awakening grants it an ability to essentially hit everything with a nuclear bomb at cost of being more vulnurable to attacks (lower defense, slower speed).<br>
+				<span style='color:yellow'>JUSTICE</span>: Speedster, as decent attacking power and surprisingly high speed, making it really good at dodging things. Awakening it grants it even more speed and an ability to charge jumps faster, allowing it to dodge everything when things get dire. (also great for activities but shhhhh)<br>
+				<span style='color:lime'>KINDNESS</span>: FAT, has no other upsides beyond having highest HP out of all SOUL traits. Awakening it (surprisingly) grants it a bit of damage reduction and passive healing, giving it an even bigger survivability capability.<br>
+				<span style='color:cyan'>PATIENCE</span>: Defensive Aggressor, has quite high health and higher attacking power. Awakening grants it good amount of attack and even higher defense than DETERMINATION, but it has slower charge speed, making it a bit risky to use in the middle of attack that can't be walked around.<br>
+				<span style='color:blue'>INTEGRITY</span>: Sweeper, has a bit more health, decent attacking power and some good speed, making it both tanky and strong enough to deliver hits. Awakening grants it really high speed and attack, granting it ability to maneveur and deal solid damage.<br>
+				<span style='color:magenta'>PERSEVERANCE</span>: Tank, has quite high health and a bit higher attack and speed. Awakening it reduces its attacking capability, but turns any and all attacks sent at it into rubber toys that can barely deal any damage to it.<br><br>
+				Fanmade SOUL Traits<br>
+				<span style='color:pink'>FEAR</span>: Sacrificial Demon, shares similar strengths with bravery, sacrificing its attacking power for great defense. Awakening it grants much more satisfying overall boosts, inverting debuffs and sacrificing some of its attack potency for an even greater defense, however, it would pay for it with their health.<br>
+				<span style='color:lightcyan'>DETEMMIENATION</span>: Awakening Dependent, Boasts rather small boosts of health and atk, suffering greatly with low base defense. However, awakening it makes up for it, granting massive boosts with incredible speed, defense and charge increases, on top of having small attack buff and incredible healing potency.<br>
+				<span style='font-family:Comic Sans MS'>"average UTTD player's SOUL trait": Driving in my truck right after a beer. Hey, that bump is shaped like a deer. DUI? How about you die? I'll go a hundred miles an hour! Little do you know, I filled up on gas. Imma get your fountain-making ass. Pulverize this fuck. With my Bergentrück. It seems you're out of luck! TRUCK!</span></p>`
 		}
 		
 		
@@ -440,9 +519,16 @@
 			bullshit = Math.ceil(Math.random()*21)
 			didWePlayIt = [bullshit,didWePlayIt[0],didWePlayIt[1],didWePlayIt[2],didWePlayIt[3],didWePlayIt[4],didWePlayIt[5],didWePlayIt[6],didWePlayIt[7],didWePlayIt[8]]
 			let test = structuredClone(didWePlayIt).splice(1)
-			console.log(didWePlayIt)
-			console.log(test)
-			if(khan && !test.includes(bullshit)) document.getElementById(`khan${bullshit}`).cloneNode(true).play()
+			if(khan && !test.includes(bullshit)){
+				document.getElementById(`khan${bullshit}`).cloneNode(true).play()
+			}
+			if(khan){
+				document.getElementById(`khan${bullshit}`).cloneNode(true).play()
+				let keepLetter = titleKeeper[0]
+				titleKeeper = titleKeeper.slice(1)
+				titleKeeper += keepLetter
+				document.title = titleKeeper
+			}
 		},200)
 		
 		donkeyKong()
