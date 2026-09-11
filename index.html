@@ -10,7 +10,10 @@
 		font-family: 'Determination';
 		font-size: 20px;
 		color: white;
-		border-color: white;
+	}
+	
+	div, td {
+		border: 4px white solid;
 	}
 	
 	button {
@@ -106,8 +109,20 @@
 			<td><button id="METHOD" onclick="statToggle[12]=[1,2,0][statToggle[12]]; document.getElementById('METHOD').innerHTML = ['Additive Method','Multiplicative Method','Exponential Method'][statToggle[12]]; donkeyKong()">Multiplicative Method</button></td>
 		</tr>
 	</table>
+	<table>
+		<tr>
+			<td id="rank"></td>
+			<td id="rankawakening"></td>
+		<tr>
+	</table>
 	<div id="lol"></div>
-	<div id="khan" onclick="document.getElementById('khanmusic').play(); document.body.style['background-image'] = 'url(khan-spin.gif)'; document.getElementById('khan').remove(); khan = true" style="height: 114px; width: 480px; background-image: url(khan-spin.gif)"></div>
+	<table>
+		<tr>
+			<td id="soul"></td>
+			<td id="awakening"></td>
+		<tr>
+	</table>
+	<div id="khan" onclick="document.getElementById('khanmusic').play(); document.body.style['background-image'] = 'url(khan-spin.gif)'; document.getElementById('khan').remove(); khan = true" style="border: 0px solid; height: 114px; width: 480px; background-image: url(khan-spin.gif)"></div>
 	<script>
 		let listOfSouls = {
 			DETERMINATION: {
@@ -325,7 +340,11 @@
 		}
 		
 		function donkeyKong(){
-		document.getElementById("lol").innerHTML = "<br>"
+		document.getElementById("lol").innerHTML = ""
+		document.getElementById("rank").innerHTML = ""
+		document.getElementById("rankawakening").innerHTML = ""
+		document.getElementById("soul").innerHTML = ""
+		document.getElementById("awakening").innerHTML = ""
 		let result = [0,"",0,""]
 		let extraHTMLBullshit = ""
 		epicList = [[],[]]
@@ -401,19 +420,17 @@
 				epicList[1][i] = [set[0],result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701:6.85)]
 				epicList[0].sort((a, b) => b[1]-a[1]);
 				epicList[1].sort((a, b) => b[1]-a[1]);
-				document.getElementById("lol").innerHTML += result[1]+"Score: "+roundThatShitUp(result[0]/(statToggle[12]==2?1:statToggle[12]==1?1701:6.85))+"<br><br><br>"
-				extraHTMLBullshit += result[3]+"Score: "+roundThatShitUp(result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701:6.85))+"<br><br><br>"
+				document.getElementById("soul").innerHTML += result[1]+"Score: "+roundThatShitUp(result[0]/(statToggle[12]==2?1:statToggle[12]==1?1701:6.85))+"<br><br><br>"
+				document.getElementById("awakening").innerHTML += result[3]+"Score: "+roundThatShitUp(result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701:6.85))+"<br><br><br>"
 				result = [0,"",0,""]
 			}
-			document.getElementById("lol").innerHTML += `<p style='transform: translate(500px,-${2276+(statToggle[8]?168:0)+(statToggle[9]?168:0)+(statToggle[10]?168:0)}px)'>`+extraHTMLBullshit+"</p>"
-			let bozo = ""
 			for(let i=0;i<SOUL.length;i++){
-				bozo += i+1+"."+epicList[0][i][0]+" ["+roundThatShitUp(epicList[0][i][1])+"]<br>"
+				document.getElementById("rank").innerHTML += i+1+"."+epicList[0][i][0]+" ["+roundThatShitUp(epicList[0][i][1])+"]<br>"
 			}
 			for(let i=0;i<SOUL.length;i++){
-				bozo += "<p style='transform: translate(280px,"+(-188-(20*i))+"px);'>|| "+(i+1)+"."+epicList[1][i][0]+" ["+roundThatShitUp(epicList[1][i][1])+"]</p>"
+				document.getElementById("rankawakening").innerHTML += "|| "+(i+1)+"."+epicList[1][i][0]+" ["+roundThatShitUp(epicList[1][i][1])+"]<br>"
 			}
-			document.getElementById("lol").innerHTML = "<br>"+bozo+"<br><p style='transform: translate(0px,-240px)'>Soul Trait Guide Thingy<br>DETERMINATION: Jack of all trades, has decent attacking power and decent health to take on attacks. Awakening grants it immense power and damage reduction, making it very powerful both offensively and defensively.<br>BRAVERY: Heavy hitter, has absurdly high attack. Awakening grants it an ability to essentially hit everything with a nuclear bomb at cost of being more vulnurable to attacks (lower defense, slower speed).<br>JUSTICE: Speedster, as decent attacking power and surprisingly high speed, making it really good at dodging things. Awakening it grants it even more speed and an ability to charge jumps faster, allowing it to dodge everything when things get dire. (also great for activities but shhhhh)<br>KINDNESS: FAT, has no other upsides beyond having highest HP out of all SOUL traits. Awakening it (surprisingly) grants it a bit of damage reduction and passive healing, giving it an even bigger survivability capability.<br>PATIENCE: Defensive Aggressor, has quite high health and higher attacking power. Awakening grants it good amount of attack and even higher defense than DETERMINATION, but it has slower charge speed, making it a bit risky to use in the middle of attack that can't be walked around.<br>INTEGRITY: Sweeper, has a bit more health, decent attacking power and some good speed, making it both tanky and strong enough to deliver hits. Awakening grants it really high speed and attack, granting it ability to maneveur and deal solid damage.<br>PERSEVERANCE: Tank, has quite high health and a bit higher attack and speed. Awakening it reduces its attacking capability, but turns any and all attacks sent at it into rubber toys that can barely deal any damage to it.<br><br><br>"+document.getElementById("lol").innerHTML+"</p>"
+			document.getElementById("lol").innerHTML = "<p>Soul Trait Guide Thingy<br>DETERMINATION: Jack of all trades, has decent attacking power and decent health to take on attacks. Awakening grants it immense power and damage reduction, making it very powerful both offensively and defensively.<br>BRAVERY: Heavy hitter, has absurdly high attack. Awakening grants it an ability to essentially hit everything with a nuclear bomb at cost of being more vulnurable to attacks (lower defense, slower speed).<br>JUSTICE: Speedster, as decent attacking power and surprisingly high speed, making it really good at dodging things. Awakening it grants it even more speed and an ability to charge jumps faster, allowing it to dodge everything when things get dire. (also great for activities but shhhhh)<br>KINDNESS: FAT, has no other upsides beyond having highest HP out of all SOUL traits. Awakening it (surprisingly) grants it a bit of damage reduction and passive healing, giving it an even bigger survivability capability.<br>PATIENCE: Defensive Aggressor, has quite high health and higher attacking power. Awakening grants it good amount of attack and even higher defense than DETERMINATION, but it has slower charge speed, making it a bit risky to use in the middle of attack that can't be walked around.<br>INTEGRITY: Sweeper, has a bit more health, decent attacking power and some good speed, making it both tanky and strong enough to deliver hits. Awakening grants it really high speed and attack, granting it ability to maneveur and deal solid damage.<br>PERSEVERANCE: Tank, has quite high health and a bit higher attack and speed. Awakening it reduces its attacking capability, but turns any and all attacks sent at it into rubber toys that can barely deal any damage to it.</p>"
 		}
 		
 		
