@@ -21,6 +21,10 @@
 		background-color: rgba(0,0,0,0.5);
 	}
 	
+	tr {
+		display: flex;
+	}
+	
 	button {
 		height: 50px;
 		width: 170px;
@@ -31,6 +35,9 @@
 	</style>
 	<audio id="khanmusic" loop>
 		<source src="khan.mp3" type="audio/mp3">
+	</audio>
+	<audio id="17" loop>
+		<source src="17.ogg" type="audio/ogg">
 	</audio>
 	<audio id="khan0">
 		<source src="toriel sfx/toriel (1).wav" type="audio/wav">
@@ -97,6 +104,7 @@
 	</audio>
 </head>
 <body style="background-color: black;">
+	* Froggit's Stats
 	<table>
 		<tr>
 			<td><button id="HP" onclick="statToggle[0]=Number(!statToggle[0]); document.getElementById('HP').innerHTML = ['HP Excluded','HP Included'][statToggle[0]]; donkeyKong()">HP Included</button></td>
@@ -107,28 +115,37 @@
 			<td><button id="HEAL" onclick="statToggle[5]=Number(!statToggle[5]); document.getElementById('HEAL').innerHTML = ['HEAL Excluded','HEAL Included'][statToggle[5]]; donkeyKong()">HEAL Included</button></td>
 			<td><button id="MAGIC" onclick="statToggle[6]=Number(!statToggle[6]); document.getElementById('MAGIC').innerHTML = ['MAGIC Excluded','MAGIC Included'][statToggle[6]]; donkeyKong()">MAGIC Included</button></td>
 		</tr>
+	</table>
+	* Miscellaneous
+	<table>
 		<tr>
 			<td><button id="ITEMS" onclick="statToggle[7]=Number(!statToggle[7]); document.getElementById('ITEMS').innerHTML = ['No Glamburgers','OHH YEEEES'][statToggle[7]]; donkeyKong()">OHH YEEEES</button></td>
 			<td><button id="BODY" onclick="statToggle[8]=[1,2,3,0][statToggle[8]]; document.getElementById('BODY').innerHTML = ['No Body Accessories','Tier 0 Body Accessories','Tier 1 Body Accessories','Tier 2 Body Accessories'][statToggle[8]]; donkeyKong()">No Body Accessories</button></td>
 			<td><button id="FACE" onclick="statToggle[9]=[1,2,3,0][statToggle[9]]; document.getElementById('FACE').innerHTML = ['No Face Accessories','Tier 0 Face Accessories','Tier 1 Face Accessories','Tier 2 Face Accessories'][statToggle[9]]; donkeyKong()">No Face Accessories</button></td>
 			<td><button id="HEAD" onclick="statToggle[10]=[1,2,3,0][statToggle[10]]; document.getElementById('HEAD').innerHTML = ['No Head Accessories','Tier 0 Head Accessories','Tier 1 Head Accessories','Tier 2 Head Accessories'][statToggle[10]]; donkeyKong()">No Head Accessories</button></td>
 			<td><button id="DUNGEON" onclick="statToggle[11]=Number(!statToggle[11]); document.getElementById('DUNGEON').innerHTML = ['Normal Mode','Dungeon Mode'][statToggle[11]]; donkeyKong()">Normal Mode</button></td>
+		</tr>
+	</table>
+	* Silly Funny Things
+	<table>
+		<tr>
 			<td><button id="METHOD" onclick="statToggle[12]=[1,2,0][statToggle[12]]; document.getElementById('METHOD').innerHTML = ['Additive Method','Multiplicative Method','Exponential Method'][statToggle[12]]; donkeyKong()">Multiplicative Method</button></td>
 			<td><button id="SOUL" onclick="statToggle[13]=Number(!statToggle[13]); document.getElementById('SOUL').innerHTML = ['In-game SOUL Traits Only','Fake SOUL Traits Allowed'][statToggle[13]]; donkeyKong()">In-game SOUL Traits Only</button></td>
+			<td><button id="TIER" onclick="statToggle[14]=Number(!statToggle[14]); document.getElementById('TIER').innerHTML = ['Normal Tier Settings','Balance A Hack-Froggit'][statToggle[14]]; donkeyKong()">Normal Tier Settings</button></td>
 		</tr>
 	</table>
 	<table>
 		<tr>
 			<td id="rank"></td>
 			<td id="rankawakening"></td>
-		<tr>
+		</tr>
 	</table>
 	<div id="lol"></div>
 	<table>
 		<tr>
 			<td id="soul"></td>
 			<td id="awakening"></td>
-		<tr>
+		</tr>
 	</table>
 	<div id="khan" onclick="titleKeeper='一度闘った相手にはもう絶っ～対に　負けんのだァァァァ－っ！！   イーッヒッヒ…おまえには勝てんよ！   ウッシャァァァァッ！   絶っ～対に！　負けなあああああいィィィ   おまえの攻撃のパターンは全部憶えた…   俺の名はカーン…　アヌビスの暗示のスタンド使いッ！   …何度やっても…同じ事だ…   闘うたびにオレは強くなる…   '; document.getElementById('khanmusic').play(); document.body.style['background-image'] = 'url(khan-spin.gif)'; document.getElementById('khan').remove(); khan = true" style="border: 0px solid; height: 114px; width: 480px; background-image: url(khan-spin.gif)"></div>
 	<script>
@@ -359,34 +376,34 @@
 			Bandage: {
 				DEF: 5,
 				HEAL: 0.01,
-				Upgradable: false
+				Upgradable(){return Boolean(statToggle[14])}
 			},
 			"Old Tutu": {
 				DEF: 10,
 				MAGIC: 8,
-				Upgradable: true
+				Upgradable(){return true}
 			},
 			"Manly Bandana": {
 				SPDMult: 0.1,
-				Upgradable: true
+				Upgradable(){return true}
 			},
 			Apron: {
 				HEAL: 0.015,
 				MAGIC: 10,
-				Upgradable: true
+				Upgradable(){return true}
 			},
 			"Stained Apron": {
 				DEF: 20,
 				HEAL: 0.005,
 				MAGIC: -25,
-				Upgradable: false
+				Upgradable(){return Boolean(statToggle[14])}
 			}
 		}
 		
 		let listOfFaces = {
 			"Cloudy Glasses": {
 				MAGIC: 20,
-				Upgradable: true
+				Upgradable(){return true}
 			}
 		}
 		
@@ -394,12 +411,12 @@
 			"Faded Ribbon": {
 				SPDMult: 0.05,
 				DEF: 15,
-				Upgradable: false
+				Upgradable(){return Boolean(statToggle[14])}
 			},
 			"Cowboy Hat": {
 				SPDMult: 0.08,
 				ATKMult: 0.1,
-				Upgradable: true
+				Upgradable(){return true}
 			},
 		}
 		
@@ -417,7 +434,7 @@
 		
 		let set = ["","","",""] //SOUL And SHIT
 		
-		let statToggle = [true,true,true,true,true,true,true,true,0,0,0,false,1,false]
+		let statToggle = [true,true,true,true,true,true,true,true,0,0,0,false,1,false,false]
 		let epicList = [[],[]]
 		
 		function roundThatShitUp(x){
@@ -428,6 +445,7 @@
 		document.getElementById("soul").style.padding = "0px"
 		document.getElementById("awakening").style.border = "0px transparent"
 		document.getElementById("awakening").style.padding = "0px"
+		document.getElementById("rank").style["border-right"] = "0px transparent"
 		
 		function donkeyKong(){
 			document.getElementById("lol").innerHTML = ""
@@ -437,6 +455,7 @@
 			document.getElementById("awakening").innerHTML = ""
 			let result = [-(2**1023*1.999),"",-(2**1023*1.999),""]
 			let extraHTMLBullshit = ""
+			let ganggangbuilddeltaruneintowerofgenerations = false
 			epicList = [[],[]]
 			for(let i=0;i<(statToggle[13]?SOUL.length:7);i++){
 				for(let z=0;z<BODY.length;z++){
@@ -454,12 +473,12 @@
 							let DEFMult = 1
 							let SPDMult = 1
 							for(let v=1;v<4;v++){
-								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("DEF")&&statToggle[v+7]) DEF += eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].DEF*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable?(statToggle[v+7]-1)/2+1:1)
-								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("HEAL")&&statToggle[v+7]) HEAL += eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].HEAL*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable?(statToggle[v+7]-1)/2+1:1)
-								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("MAGIC")&&statToggle[v+7]) MAGIC += eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].MAGIC*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable?(statToggle[v+7]-1)/2+1:1)
-								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("ATKMult")&&statToggle[v+7]) ATKMult *= eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].ATKMult*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable?(statToggle[v+7]-1)/2+1:1)+1
-								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("DEFMult")&&statToggle[v+7]) DEFMult *= eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].DEFMult*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable?(statToggle[v+7]-1)/2+1:1)+1
-								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("SPDMult")&&statToggle[v+7]) SPDMult *= eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].SPDMult*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable?(statToggle[v+7]-1)/2+1:1)+1
+								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("DEF")&&statToggle[v+7]) DEF += eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].DEF*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable()?(statToggle[v+7]-1)/2+1:1)
+								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("HEAL")&&statToggle[v+7]) HEAL += eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].HEAL*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable()?(statToggle[v+7]-1)/2+1:1)
+								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("MAGIC")&&statToggle[v+7]) MAGIC += eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].MAGIC*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable()?(statToggle[v+7]-1)/2+1:1)
+								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("ATKMult")&&statToggle[v+7]) ATKMult *= eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].ATKMult*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable()?(statToggle[v+7]-1)/2+1:1)+1
+								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("DEFMult")&&statToggle[v+7]) DEFMult *= eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].DEFMult*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable()?(statToggle[v+7]-1)/2+1:1)+1
+								if(Object.keys(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]]).includes("SPDMult")&&statToggle[v+7]) SPDMult *= eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].SPDMult*(eval(`listOf${["","Bodies","Faces","Heads"][v]}`)[set[v]].Upgradable()?(statToggle[v+7]-1)/2+1:1)+1
 							}
 							HP *= listOfSouls[set[0]].Base.HP
 							ATK *= listOfSouls[set[0]].Base.ATK
@@ -481,7 +500,7 @@
 							if(!statToggle[6]) MAGIC = 100
 							let methodScore = statToggle[12]==2?(HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100)/1701/0.85)**(((HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100))/6.85):statToggle[12]==1?HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100):(HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100)
 							if(methodScore>=result[0]&&!isNaN(methodScore))
-								result[1] = `<div style="background-color: rgba(0,0,0,0); border-bottom: ${i==(statToggle[13]?SOUL.length-1:7-1)?"4":"0"}px solid; border-right: 0px;"><div style="background-color: rgba(0,0,0,0); border: 0px solid;"><img style="height:16px;width:16px;object-fit: cover;transform:translate(5px,2px);object-position:${-(16*i)}px 0px;" src="HeartShapedObject.png">  <span style="font-family: ${SOUL[i]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}; color: ${SOUL[i]!="average UTTD player's SOUL trait"?listOfSouls[SOUL[i]].COLOR:"white"}">${SOUL[i]}</span><br>`+(statToggle[8]?`Body: ${set[1]}<br>`:``)+(statToggle[9]?`Face: ${set[2]}<br>`:``)+(statToggle[10]?`Head: ${set[3]}<br>`:``)+`HP: ${roundThatShitUp(HP)}<br>ATK: ${Math.round(ATK)}<br>SPD: ${roundThatShitUp(SPD)}<br>DEF: ${roundThatShitUp(DEF)}<br>Damage Reduction: /${roundThatShitUp(DEFMult)}${DEF?` [/${roundThatShitUp(DEFMult*(DEF/100+1))}]`:``}<br>Magic: ${MAGIC}<br>Charge Speed: x${CHARGE}<br>Regeneration: ${roundThatShitUp(HEAL*100/(statToggle[11]?5:1))}%`+(HEAL?` (${roundThatShitUp(HEAL*2000)}% Extra ${statToggle[11]?"Total":""} HP)`:``)+`</div>`
+								result[1] = `<div style="background-color: rgba(0,0,0,0); border: 0px;"><div style="background-color: rgba(0,0,0,0); border: 0px solid;">*<img style="height:16px;width:16px;object-fit: cover;transform:translate(5px,2px);object-position:${-(16*i)}px 0px;" src="HeartShapedObject.png">  <span style="font-family: ${SOUL[i]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}; color: ${SOUL[i]!="average UTTD player's SOUL trait"?listOfSouls[SOUL[i]].COLOR:"white"}">${SOUL[i]}</span><br>`+(statToggle[8]?`* Body: ${set[1]} (Tier ${listOfBodies[set[1]].Upgradable()?statToggle[8]-1:"0"})<br>`:``)+(statToggle[9]?`* Face: ${set[2]} (Tier ${listOfFaces[set[2]].Upgradable()?statToggle[9]-1:"0"})<br>`:``)+(statToggle[10]?`* Head: ${set[3]} (Tier ${listOfHeads[set[3]].Upgradable()?statToggle[10]-1:"0"})<br>`:``)+`* HP: ${roundThatShitUp(HP)}<br>* ATK: ${Math.round(ATK)}<br>* SPD: ${roundThatShitUp(SPD)}<br>* DEF: ${roundThatShitUp(DEF)}<br>* Damage Reduction: /${roundThatShitUp(DEFMult)}${DEF?` [/${roundThatShitUp(DEFMult*(DEF/100+1))}]`:``}<br>* Magic: ${MAGIC}<br>* Charge Speed: x${CHARGE}<br>* Regeneration: ${roundThatShitUp(HEAL*100/(statToggle[11]?5:1))}%`+(HEAL?` (${roundThatShitUp(HEAL*2000)}% Extra ${statToggle[11]?"Total":""} HP)`:``)+`</div>`
 							if(!isNaN(methodScore)) result[0] = Math.max(result[0], methodScore)
 							HP *= listOfSouls[set[0]].Awakening.HP
 							ATK *= listOfSouls[set[0]].Awakening.ATK
@@ -501,7 +520,7 @@
 							if(!statToggle[6]) MAGIC = 100
 							methodScore = statToggle[12]==2?(HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100)/1701/0.85)**(((HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100))/6.85):statToggle[12]==1?HP*Math.round(ATK)*SPD*(DEF/100+1)*DEFMult*(HEAL*20/(statToggle[7]?4:1)+1)*CHARGE*((MAGIC-15)/100):(HP/(20+(LEVEL**(3/2))))+Math.round((ATK/(5+(LEVEL**(6/5)/10))))+(SPD/(16+(LEVEL/5)))+(DEF/100+1)+DEFMult+(HEAL*20/(statToggle[7]?4:1))+CHARGE+((MAGIC-15)/100)
 							if(methodScore>=result[2]&&!isNaN(methodScore))
-								result[3] = `<div style="background-color: rgba(0,0,0,0); border-bottom: ${i==(statToggle[13]?SOUL.length-1:7-1)?"4":"0"}px solid; border-left: 0px;"><div style="background-color: rgba(0,0,0,0); border: 0px solid;"><img style="height:16px;width:16px;object-fit: cover;transform:translate(5px,2px);object-position:${-(16*i)}px 0px;" src="HeartShapedObject.png">  <span style="font-family: ${SOUL[i]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}; color: ${SOUL[i]!="average UTTD player's SOUL trait"?listOfSouls[SOUL[i]].COLOR:"white"}">${SOUL[i]}</span>'s Awakening<br>`+(statToggle[8]?`Body: ${set[1]}<br>`:``)+(statToggle[9]?`Face: ${set[2]}<br>`:``)+(statToggle[10]?`Head: ${set[3]}<br>`:``)+`HP: ${roundThatShitUp(HP)}<br>ATK: ${Math.round(ATK)}<br>SPD: ${roundThatShitUp(SPD)}<br>DEF: ${roundThatShitUp(DEF)}<br>Damage Reduction: /${roundThatShitUp(DEFMult)}${DEF?` [/${roundThatShitUp(DEFMult*(DEF/100+1))}]`:``}<br>Magic: ${MAGIC}<br>Charge Speed: x${CHARGE}<br>Regeneration: ${roundThatShitUp(HEAL*100/(statToggle[11]?5:1))}%`+(HEAL?` (${roundThatShitUp(HEAL*2000)}% Extra ${statToggle[11]?"Total":""} HP)`:``)+`</div>`
+								result[3] = `<div style="background-color: rgba(0,0,0,0); border: 0px;"><div style="background-color: rgba(0,0,0,0); border: 0px solid;">*<img style="height:16px;width:16px;object-fit: cover;transform:translate(5px,2px);object-position:${-(16*i)}px 0px;" src="HeartShapedObject.png">  <span style="font-family: ${SOUL[i]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}; color: ${SOUL[i]!="average UTTD player's SOUL trait"?listOfSouls[SOUL[i]].COLOR:"white"}">${SOUL[i]}</span>'s Awakening<br>`+(statToggle[8]?`* Body: ${set[1]} (Tier ${listOfBodies[set[1]].Upgradable()?statToggle[8]-1:"0"})<br>`:``)+(statToggle[9]?`* Face: ${set[2]} (Tier ${listOfFaces[set[2]].Upgradable()?statToggle[9]-1:"0"})<br>`:``)+(statToggle[10]?`* Head: ${set[3]} (Tier ${listOfHeads[set[3]].Upgradable()?statToggle[10]-1:"0"})<br>`:``)+`* HP: ${roundThatShitUp(HP)}<br>* ATK: ${Math.round(ATK)}<br>* SPD: ${roundThatShitUp(SPD)}<br>* DEF: ${roundThatShitUp(DEF)}<br>* Damage Reduction: /${roundThatShitUp(DEFMult)}${DEF?` [/${roundThatShitUp(DEFMult*(DEF/100+1))}]`:``}<br>* Magic: ${MAGIC}<br>* Charge Speed: x${CHARGE}<br>* Regeneration: ${roundThatShitUp(HEAL*100/(statToggle[11]?5:1))}%`+(HEAL?` (${roundThatShitUp(HEAL*2000)}% Extra ${statToggle[11]?"Total":""} HP)`:``)+`</div>`
 							if(!isNaN(methodScore)) result[2] = Math.max(result[2], methodScore)
 						}	
 					}
@@ -510,8 +529,10 @@
 				epicList[1][i] = [set[0],result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701*0.85:6.85),i]
 				epicList[0].sort((a, b) => b[1]-a[1]);
 				epicList[1].sort((a, b) => b[1]-a[1]);
-				document.getElementById("soul").innerHTML += result[1]+"Score: "+roundThatShitUp(result[0]/(statToggle[12]==2?1:statToggle[12]==1?1701*0.85:6.85))
-				document.getElementById("awakening").innerHTML += (result[3]==""?"[REDACTED]<br>"+(statToggle[8]?"Body: undefined<br>":"")+(statToggle[9]?"Face: undefined<br>":"")+(statToggle[10]?"Head: undefined<br>":"")+"HP: 666666<br>ATK: 66666<br>SPD: NaN<br>DEF: 66666<br>Damage Reduction: /NaN<br>Magic: NaN<br>Charge: xNaN<br>Regeneration: NaN%<br>":result[3])+"Score: "+(result[3]==""?"NaN":roundThatShitUp(result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701*0.85:6.85)))
+				if(result[3]=="")
+				ganggangbuilddeltaruneintowerofgenerations = true
+				document.getElementById("soul").innerHTML += `<div style="border-bottom: ${(i+1)==(statToggle[13]?SOUL.length:7)?"4":"0"}px solid; border-right: 0px solid;">`+result[1]+"* Score: "+roundThatShitUp(result[0]/(statToggle[12]==2?1:statToggle[12]==1?1701*0.85:6.85))+`</div>`
+				document.getElementById("awakening").innerHTML += `<div style="background-image: ${result[3]==""?"url(17.gif)":""};font-family: ${result[3]==""?"Wingdings":""}; border-bottom: ${(i+1)==(statToggle[13]?SOUL.length:7)?"4":"0"}px solid; border-left: 4px solid;">`+(result[3]==""?"[REDACTED]<br>"+(statToggle[8]?"Body: undefined<br>":"")+(statToggle[9]?"Face: undefined<br>":"")+(statToggle[10]?"Head: undefined<br>":"")+"HP: 666666<br>ATK: 66666<br>SPD: NaN<br>DEF: 66666<br>Damage Reduction: /NaN<br>Magic: NaN<br>Charge: xNaN<br>Regeneration: NaN%<br>Score: NaN<div style='background-color: transparent; border: 0px; height:26px'></div>":result[3]+"* Score: "+roundThatShitUp(result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701*0.85:6.85)))+`</div>`
 				result = [-(2**1023*1.999),"",-(2**1023*1.999),""]
 			}
 			for(let i=0;i<(statToggle[13]?SOUL.length:7);i++){
@@ -526,17 +547,9 @@
 					document.getElementById("lol").innerHTML += `<br>Fanmade SOUL Traits:`
 				document.getElementById("lol").innerHTML += `<div style="background-color: rgba(0,0,0,0); border: 0px solid;"><img style="height:16px;width:16px;object-fit: cover;transform:translate(5px,2px);object-position:${-(16*i)}px 0px;" src="HeartShapedObject.png">  <span style="font-family: ${SOUL[i]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}; color: ${SOUL[i]!="average UTTD player's SOUL trait"?listOfSouls[SOUL[i]].COLOR:"white"}">${SOUL[i]}</span><span style="font-family: ${SOUL[i]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}">: ${listOfSouls[SOUL[i]].DESCRIPTION}</span></div>`
 			}
-				/*<span style='color:red'>DETERMINATION</span>: Jack of all trades, has decent attacking power and decent health to take on attacks. Awakening grants it immense power and damage reduction, making it very powerful both offensively and defensively.<br>
-				<span style='color:orange'>BRAVERY</span>: Heavy hitter, has absurdly high attack. Awakening grants it an ability to essentially hit everything with a nuclear bomb at cost of being more vulnurable to attacks (lower defense, slower speed).<br>
-				<span style='color:yellow'>JUSTICE</span>: Speedster, as decent attacking power and surprisingly high speed, making it really good at dodging things. Awakening it grants it even more speed and an ability to charge jumps faster, allowing it to dodge everything when things get dire. (also great for activities but shhhhh)<br>
-				<span style='color:lime'>KINDNESS</span>: FAT, has no other upsides beyond having highest HP out of all SOUL traits. Awakening it (surprisingly) grants it a bit of damage reduction and passive healing, giving it an even bigger survivability capability.<br>
-				<span style='color:cyan'>PATIENCE</span>: Defensive Aggressor, has quite high health and higher attacking power. Awakening grants it good amount of attack and even higher defense than DETERMINATION, but it has slower charge speed, making it a bit risky to use in the middle of attack that can't be walked around.<br>
-				<span style='color:blue'>INTEGRITY</span>: Sweeper, has a bit more health, decent attacking power and some good speed, making it both tanky and strong enough to deliver hits. Awakening grants it really high speed and attack, granting it ability to maneveur and deal solid damage.<br>
-				<span style='color:magenta'>PERSEVERANCE</span>: Tank, has quite high health and a bit higher attack and speed. Awakening it reduces its attacking capability, but turns any and all attacks sent at it into rubber toys that can barely deal any damage to it.`+(statToggle[13]?`<br><br>
-				Fanmade SOUL Traits<br>
-				<span style='color:pink'>FEAR</span>: Sacrificial Demon, shares similar strengths with bravery, sacrificing its attacking power for great defense. Awakening it grants much more satisfying overall boosts, inverting debuffs and sacrificing some of its attack potency for an even greater defense, however, it would pay for it with their health.<br>
-				<span style='color:lightcyan'>DETEMMIENATION</span>: Awakening Dependent, Boasts rather small boosts of health and atk, suffering greatly with low base defense. However, awakening it makes up for it, granting massive boosts with incredible speed, defense and charge increases, on top of having small attack buff and incredible healing potency.<br>
-				<span style='font-family:Comic Sans MS'>"average UTTD player's SOUL trait": Driving in my truck right after a beer. Hey, that bump is shaped like a deer. DUI? How about you die? I'll go a hundred miles an hour! Little do you know, I filled up on gas. Imma get your fountain-making ass. Pulverize this fuck. With my Bergentrück. It seems you're out of luck! TRUCK!</span>`:``)*/
+			document.getElementById('17').pause()
+			if(ganggangbuilddeltaruneintowerofgenerations)
+				document.getElementById('17').play()
 		}
 		
 		
