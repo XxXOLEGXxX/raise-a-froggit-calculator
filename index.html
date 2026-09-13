@@ -537,8 +537,10 @@
 						}	
 					}
 				}
-				epicList[0][i] = [set[0],result[0]/(statToggle[12]==2?1:statToggle[12]==1?1701:6),i]
-				epicList[1][i] = [set[0],result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701:6.85),i]
+				result[0] = roundThatShitUp(result[0]/(statToggle[12]==2?1:statToggle[12]==1?1701:6))
+				result[2] = roundThatShitUp(result[2]/(statToggle[12]==2?1:statToggle[12]==1?1701:6.85))
+				epicList[0][i] = [set[0],result[0],i]
+				epicList[1][i] = [set[0],result[2],i]
 				epicList[0].sort((a, b) => b[1]-a[1]);
 				epicList[1].sort((a, b) => b[1]-a[1]);
 				if(result[3]=="" || result[1]=="")
