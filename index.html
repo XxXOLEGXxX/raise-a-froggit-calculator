@@ -133,7 +133,8 @@
 		<tr>
 			<td><button id="METHOD" onclick="statToggle[12]=[1,2,0][statToggle[12]]; document.getElementById('METHOD').innerHTML = ['Additive Method','Multiplicative Method','Exponential Method'][statToggle[12]]; donkeyKong()">Multiplicative Method</button></td>
 			<td><button id="SOUL" onclick="statToggle[13]=Number(!statToggle[13]); document.getElementById('SOUL').innerHTML = ['In-game SOUL Traits Only','Fake SOUL Traits Allowed'][statToggle[13]]; donkeyKong()">In-game SOUL Traits Only</button></td>
-			<td><button id="TIER" onclick="statToggle[14]=Number(!statToggle[14]); statSlider(0,true);statSlider(1,true);statSlider(2,true); document.getElementById('TIER').innerHTML = ['Normal Tier Settings','Balance A Hack-Froggit'][statToggle[14]]; donkeyKong()">Normal Tier Settings</button></td>
+			<td><button id="TIER" onclick="statToggle[14]=Number(!statToggle[14]); document.getElementById('TIER').innerHTML = ['Normal Tier Settings','Balance A Hack-Froggit'][statToggle[14]]; donkeyKong()">Normal Tier Settings</button></td>
+			<td><button id="HARDCAP" onclick="statToggle[16]=Number(!statToggle[16]); statSlider(0,true);statSlider(1,true);statSlider(2,true); document.getElementById('HARDCAP').innerHTML = ['2 Tiers Only','Unlimited Tiers'][statToggle[16]]; donkeyKong()">2 Tiers Only</button></td>
 		</tr>
 	</table>
 	<table>
@@ -436,7 +437,7 @@
 		
 		let set = ["","","",""] //SOUL And SHIT
 		
-		let statToggle = [true,true,true,true,true,true,true,true,0,0,0,false,1,false,false,false]
+		let statToggle = [true,true,true,true,true,true,true,true,0,0,0,false,1,false,false,false,false]
 		let epicList = [[],[]]
 		
 		function roundThatShitUp(x){
@@ -444,9 +445,11 @@
 		}
 		
 		function statSlider(x, check=false){
-			statToggle[x+8] = statToggle[14]&&!check?Number(prompt("Select Tier"))+1:statToggle[x+8]+(!check?1:0)
-			if(statToggle[x+8]>=4 && !statToggle[14])
-				statToggle[x+8] = 0
+			statToggle[x+8] = statToggle[16]&&!check?Number(prompt("Select Tier"))+1:statToggle[x+8]+(!check?1:0)
+			if(statToggle[x+8]>=4 && check)
+			statToggle[x+8] = 3
+			if(statToggle[x+8]>=4 && !statToggle[16])
+				statToggle[x+8] = statToggle[16]?statToggle[x+8]+1:0
 			document.getElementById(['BODY','FACE','HEAD'][x]).innerHTML = statToggle[x+8]?('Tier '+(statToggle[x+8]-1)+' '+['Body','Face','Head'][x]+' Accessories'):('No '+['Body','Face','Head'][x]+' Accessories')
 		}
 		
