@@ -135,6 +135,7 @@
 			<td><button id="SOUL" onclick="statToggle[13]=Number(!statToggle[13]); document.getElementById('SOUL').innerHTML = ['In-game SOUL Traits Only','Fake SOUL Traits Allowed'][statToggle[13]]; donkeyKong()">In-game SOUL Traits Only</button></td>
 			<td><button id="TIER" onclick="statToggle[14]=Number(!statToggle[14]); document.getElementById('TIER').innerHTML = ['Normal Tier Settings','Balance A Hack-Froggit'][statToggle[14]]; donkeyKong()">Normal Tier Settings</button></td>
 			<td><button id="HARDCAP" onclick="statToggle[16]=Number(!statToggle[16]); statSlider(0,true);statSlider(1,true);statSlider(2,true); document.getElementById('HARDCAP').innerHTML = ['2 Tiers Only','Unlimited Tiers'][statToggle[16]]; donkeyKong()">2 Tiers Only</button></td>
+			<td><button onclick="fuseSOULs()">FUSE SOULS</button></td>
 		</tr>
 	</table>
 	<table>
@@ -360,7 +361,8 @@
 					SPD: 1.43,
 					DEF: 1,
 					CHARGE: 1.05,
-					HEAL: 0.05
+					HEAL: 0.05,
+					MAGIC: 0,
 				},
 				Awakening: {
 					HP: 1,
@@ -368,7 +370,8 @@
 					SPD: 1,
 					DEF: 1,
 					CHARGE: 1,
-					HEAL: 0.05
+					HEAL: 0.05,
+					MAGIC: 0,
 				},
 				COLOR: "lightcyan",
 				DESCRIPTION: "Driving in my truck right after a beer. Hey, that bump is shaped like a deer. DUI? How about you die? I'll go a hundred miles an hour! Little do you know, I filled up on gas. Imma get your fountain-making ass. Pulverize this fuck. With my Bergentrück. It seems you're out of luck! TRUCK!"
@@ -442,6 +445,114 @@
 		
 		function roundThatShitUp(x){
 			return Math.round(x*1000)/1000
+		}
+		
+		function fuseSOULs(color="white"){
+			if(confirm("Would you like to fuse EVERY SOUL Trait at once?"))
+				fuseALLSOULSBro()
+			else{
+				let list = "Please select first SOUL Trait"
+				let counter = 1
+				let limit = statToggle[13]?10:7
+				for(let i=0;i<limit;i++){
+					if(!listOfSouls[SOUL[i]].FUSION){
+						list+=`\n${counter}. ${SOUL[i]}`
+						counter+=1
+					}
+				}
+				let x = prompt(list)-1
+				if(!SOUL[x]){
+					alert("CRIITCAL ERROR!!! SOUL TRAIT NOT FOUND!!! SHUTTING DOWN...")
+					return 0
+				}
+				Object.assign(listOfSouls[SOUL[x]], {USED: true})
+				list = "Please select second SOUL Trait"
+				counter = 1
+				for(let i=0;i<limit;i++){
+					if(!listOfSouls[SOUL[i]].FUSION){
+						list+=`\n${counter}. ${SOUL[i]}`
+						if(listOfSouls[SOUL[i]].USED)
+							list+=` [USED]`
+						counter+=1
+					}
+				}
+				let y = prompt(list)-1
+				delete listOfSouls[SOUL[x]].USED
+				if(SOUL[y] == SOUL[x]){
+					alert("bro you can't do that")
+					return 0
+				}
+				if(y<0||y>=limit){
+					alert("CRIITCAL ERROR!!! SOUL TRAIT NOT FOUND!!! SHUTTING DOWN...")
+					return 0
+				}
+				if(SOUL.includes(`${SOUL[x]} + ${SOUL[y]}`)||SOUL.includes(`${SOUL[y]} + ${SOUL[x]}`)){
+					alert("This is getting kind of repetitive, isn't it?")
+					return 0
+				}
+				Object.assign(listOfSouls, 
+				{[`${SOUL[x]} + ${SOUL[y]}`]: {
+					Base: {
+						HP: (listOfSouls[SOUL[x]].Base.HP+listOfSouls[SOUL[y]].Base.HP-2)/2+1,
+						ATK: (listOfSouls[SOUL[x]].Base.ATK+listOfSouls[SOUL[y]].Base.ATK-2)/2+1,
+						SPD: (listOfSouls[SOUL[x]].Base.SPD+listOfSouls[SOUL[y]].Base.SPD-2)/2+1,
+						DEF: (listOfSouls[SOUL[x]].Base.DEF+listOfSouls[SOUL[y]].Base.DEF-2)/1.5+1,
+						CHARGE: (listOfSouls[SOUL[x]].Base.CHARGE+listOfSouls[SOUL[y]].Base.CHARGE-2)/1.5+1,
+						HEAL: (listOfSouls[SOUL[x]].Base.HEAL+listOfSouls[SOUL[y]].Base.HEAL)/1.5,
+						MAGIC: (listOfSouls[SOUL[x]].Base.MAGIC+listOfSouls[SOUL[y]].Base.MAGIC)/1.5,
+					},
+					Awakening: {
+						HP: (listOfSouls[SOUL[x]].Awakening.HP+listOfSouls[SOUL[y]].Awakening.HP-2)/2+1,
+						ATK: (listOfSouls[SOUL[x]].Awakening.ATK+listOfSouls[SOUL[y]].Awakening.ATK-2)/2+1,
+						SPD: (listOfSouls[SOUL[x]].Awakening.SPD+listOfSouls[SOUL[y]].Awakening.SPD-2)/2+1,
+						DEF: (listOfSouls[SOUL[x]].Awakening.DEF+listOfSouls[SOUL[y]].Awakening.DEF-2)/1.5+1,
+						CHARGE: (listOfSouls[SOUL[x]].Awakening.CHARGE+listOfSouls[SOUL[y]].Awakening.CHARGE-2)/1.5+1,
+						HEAL: (listOfSouls[SOUL[x]].Awakening.HEAL+listOfSouls[SOUL[y]].Awakening.HEAL)/1.5,
+						MAGIC: (listOfSouls[SOUL[x]].Awakening.MAGIC+listOfSouls[SOUL[y]].Awakening.MAGIC)/1.5,
+					},
+					COLOR: color,
+					FUSION: true
+				}})
+				SOUL = Object.keys(listOfSouls)
+				donkeyKong()
+			}
+		}
+		
+		function fuseALLSOULSBro(){
+			for(let i=0;i<10;i++){
+				for(let v=i+1;v<10;v++){
+				let x=i
+				let y=v
+				let color="white"
+				if(listOfSouls[`${SOUL[x]} + ${SOUL[y]}`])
+					continue
+				Object.assign(listOfSouls, 
+					{[`${SOUL[x]} + ${SOUL[y]}`]: {
+						Base: {
+							HP: (listOfSouls[SOUL[x]].Base.HP+listOfSouls[SOUL[y]].Base.HP-2)/2+1,
+							ATK: (listOfSouls[SOUL[x]].Base.ATK+listOfSouls[SOUL[y]].Base.ATK-2)/2+1,
+							SPD: (listOfSouls[SOUL[x]].Base.SPD+listOfSouls[SOUL[y]].Base.SPD-2)/2+1,
+							DEF: (listOfSouls[SOUL[x]].Base.DEF+listOfSouls[SOUL[y]].Base.DEF-2)/1.5+1,
+							CHARGE: (listOfSouls[SOUL[x]].Base.CHARGE+listOfSouls[SOUL[y]].Base.CHARGE-2)/1.5+1,
+							HEAL: (listOfSouls[SOUL[x]].Base.HEAL+listOfSouls[SOUL[y]].Base.HEAL)/1.5,
+							MAGIC: (listOfSouls[SOUL[x]].Base.MAGIC+listOfSouls[SOUL[y]].Base.MAGIC)/1.5,
+						},
+						Awakening: {
+							HP: (listOfSouls[SOUL[x]].Awakening.HP+listOfSouls[SOUL[y]].Awakening.HP-2)/2+1,
+							ATK: (listOfSouls[SOUL[x]].Awakening.ATK+listOfSouls[SOUL[y]].Awakening.ATK-2)/2+1,
+							SPD: (listOfSouls[SOUL[x]].Awakening.SPD+listOfSouls[SOUL[y]].Awakening.SPD-2)/2+1,
+							DEF: (listOfSouls[SOUL[x]].Awakening.DEF+listOfSouls[SOUL[y]].Awakening.DEF-2)/1.5+1,
+							CHARGE: (listOfSouls[SOUL[x]].Awakening.CHARGE+listOfSouls[SOUL[y]].Awakening.CHARGE-2)/1.5+1,
+							HEAL: (listOfSouls[SOUL[x]].Awakening.HEAL+listOfSouls[SOUL[y]].Awakening.HEAL)/1.5,
+							MAGIC: (listOfSouls[SOUL[x]].Awakening.MAGIC+listOfSouls[SOUL[y]].Awakening.MAGIC)/1.5,
+						},
+						COLOR: color,
+						FUSION: true
+					}})
+					SOUL = Object.keys(listOfSouls)
+				}
+			}
+			donkeyKong()
 		}
 		
 		function statSlider(x, check=false){
@@ -559,7 +670,8 @@
 			for(let i=0;i<(statToggle[13]?SOUL.length:7);i++){
 				if(i==7)
 					document.getElementById("lol").innerHTML += `<br>Fanmade SOUL Traits:`
-				document.getElementById("lol").innerHTML += `<div style="background-color: rgba(0,0,0,0); border: 0px solid;"><img style="height:16px;width:16px;object-fit: cover;transform:translate(5px,2px);object-position:${-(16*i)}px 0px;" src="HeartShapedObject.png">  <span style="font-family: ${SOUL[i]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}; color: ${SOUL[i]!="average UTTD player's SOUL trait"?listOfSouls[SOUL[i]].COLOR:"white"}">${SOUL[i]}</span><span style="font-family: ${SOUL[i]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}"><br>* ${listOfSouls[SOUL[i]].DESCRIPTION}</span></div>`
+				if(!listOfSouls[SOUL[i]].FUSION)
+					document.getElementById("lol").innerHTML += `<div style="background-color: rgba(0,0,0,0); border: 0px solid;"><img style="height:16px;width:16px;object-fit: cover;transform:translate(5px,2px);object-position:${-(16*i)}px 0px;" src="HeartShapedObject.png">  <span style="font-family: ${SOUL[i]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}; color: ${SOUL[i]!="average UTTD player's SOUL trait"?listOfSouls[SOUL[i]].COLOR:"white"}">${SOUL[i]}</span><span style="font-family: ${SOUL[i]!="average UTTD player's SOUL trait"?"":"Comic Sans MS"}"><br>* ${listOfSouls[SOUL[i]].DESCRIPTION}</span></div>`
 			}
 			document.getElementById('17').pause()
 			if(ganggangbuilddeltaruneintowerofgenerations)
