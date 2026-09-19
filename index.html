@@ -309,28 +309,6 @@
 				COLOR: "magenta",
 				DESCRIPTION: "Tank, has quite high health and a bit higher attack and speed. Awakening it reduces its attacking capability, but turns any and all attacks sent at it into rubber toys that can barely deal any damage to it."
 			},
-			FEAR: {
-				Base: {
-					HP: 1,
-					ATK: 1.25,
-					SPD: 1,
-					DEF: 1.5,
-					CHARGE: 1,
-					HEAL: 0,
-					MAGIC: 0,
-				},
-				Awakening: {
-					HP: 1,
-					ATK: 1.5,
-					SPD: 1.2,
-					DEF: 1.75,
-					CHARGE: 1,
-					HEAL: -0.05,
-					MAGIC: 0,
-				},
-				COLOR: "pink",
-				DESCRIPTION: "Sacrificial Demon, shares similar strengths with bravery, sacrificing its attacking power for great defense. Awakening it grants much more satisfying overall boosts, inverting debuffs and sacrificing some of its attack potency for an even greater defense, however, it would pay for it with their health."
-			},
 			DETEMMIENATION: {
 				Base: {
 					HP: 1.05,
@@ -351,6 +329,7 @@
 					HEAL: 0.05,
 					MAGIC: 0,
 				},
+				ANTIDOTE: true,
 				COLOR: "lightcyan",
 				DESCRIPTION: "Awakening Dependent, Boasts rather small boosts of health and atk, suffering greatly with low base defense. However, awakening it makes up for it, granting massive boosts with incredible speed, defense and charge increases, on top of having small attack buff and incredible healing potency."
 			},
@@ -373,8 +352,31 @@
 					HEAL: 0.05,
 					MAGIC: 0,
 				},
-				COLOR: "lightcyan",
+				TRUCK: true,
+				COLOR: "white",
 				DESCRIPTION: "Driving in my truck right after a beer. Hey, that bump is shaped like a deer. DUI? How about you die? I'll go a hundred miles an hour! Little do you know, I filled up on gas. Imma get your fountain-making ass. Pulverize this fuck. With my Bergentrück. It seems you're out of luck! TRUCK!"
+			},
+			HATE: {
+				Base: {
+					HP: 1,
+					ATK: 1,
+					SPD: 1,
+					DEF: 1,
+					CHARGE: 1,
+					HEAL: 0,
+					MAGIC: 0,
+				},
+				Awakening: {
+					HP: 1,
+					ATK: 1,
+					SPD: 1,
+					DEF: 1,
+					CHARGE: 1,
+					HEAL: 0,
+					MAGIC: 0,
+				},
+				COLOR: "rgb(66,0,0)",
+				DESCRIPTION: "A substance specifically here for creation of Inverted SOULs. Completely useless on its own and serves as an enhancer(?)"
 			},
 		}
 		
@@ -447,21 +449,21 @@
 			return Math.round(x*1000)/1000
 		}
 		
-		function fuseSOULs(color="white"){
-			if(confirm("Would you like to fuse EVERY SOUL Trait at once?"))
+		function fuseSOULs(xPlaceholder="NULL",yPlaceholder="NULL",color="white",desc=""){
+			if(xPlaceholder!="NULL"?false:confirm("Would you like to fuse EVERY SOUL Trait at once?"))
 				fuseALLSOULSBro()
 			else{
 				let list = "Please select first SOUL Trait"
 				let counter = 1
-				let limit = statToggle[13]?10:7
+				let limit = statToggle[13]?17:7
 				for(let i=0;i<limit;i++){
 					if(!listOfSouls[SOUL[i]].FUSION){
 						list+=`\n${counter}. ${SOUL[i]}`
 						counter+=1
 					}
 				}
-				let x = prompt(list)-1
-				if(!SOUL[x]){
+				let x = xPlaceholder!="NULL"||xPlaceholder==0?xPlaceholder:prompt(list)-1
+				if(!SOUL[x] && xPlaceholder=="NULL"){
 					alert("CRIITCAL ERROR!!! SOUL TRAIT NOT FOUND!!! SHUTTING DOWN...")
 					return 0
 				}
@@ -476,55 +478,145 @@
 						counter+=1
 					}
 				}
-				let y = prompt(list)-1
+				let y = yPlaceholder!="NULL"?yPlaceholder:prompt(list)-1
 				delete listOfSouls[SOUL[x]].USED
-				if(SOUL[y] == SOUL[x]){
+				
+				if(SOUL[y] == SOUL[x] && SOUL[x] == "HATE" && xPlaceholder=="NULL" && yPlaceholder=="NULL"){
+					alert("Daring today, aren't we?")
+					return 0
+				}
+				if(SOUL[y] == SOUL[x] && xPlaceholder=="NULL" && yPlaceholder=="NULL"){
 					alert("bro you can't do that")
 					return 0
 				}
-				if(y<0||y>=limit){
+				if((y<0||y>=limit) && xPlaceholder=="NULL" && yPlaceholder=="NULL"){
 					alert("CRIITCAL ERROR!!! SOUL TRAIT NOT FOUND!!! SHUTTING DOWN...")
 					return 0
 				}
-				if(SOUL.includes(`${SOUL[x]} + ${SOUL[y]}`)||SOUL.includes(`${SOUL[y]} + ${SOUL[x]}`)){
+				if((SOUL.includes(`${SOUL[x]} + ${SOUL[y]}`)||SOUL.includes(`${SOUL[y]} + ${SOUL[x]}`)) && xPlaceholder=="NULL" && yPlaceholder=="NULL"){
 					alert("This is getting kind of repetitive, isn't it?")
 					return 0
 				}
-				Object.assign(listOfSouls, 
-				{[`${SOUL[x]} + ${SOUL[y]}`]: {
-					Base: {
-						HP: (listOfSouls[SOUL[x]].Base.HP+listOfSouls[SOUL[y]].Base.HP-2)/2+1,
-						ATK: (listOfSouls[SOUL[x]].Base.ATK+listOfSouls[SOUL[y]].Base.ATK-2)/2+1,
-						SPD: (listOfSouls[SOUL[x]].Base.SPD+listOfSouls[SOUL[y]].Base.SPD-2)/2+1,
-						DEF: (listOfSouls[SOUL[x]].Base.DEF+listOfSouls[SOUL[y]].Base.DEF-2)/1.5+1,
-						CHARGE: (listOfSouls[SOUL[x]].Base.CHARGE+listOfSouls[SOUL[y]].Base.CHARGE-2)/1.5+1,
-						HEAL: (listOfSouls[SOUL[x]].Base.HEAL+listOfSouls[SOUL[y]].Base.HEAL)/1.5,
-						MAGIC: (listOfSouls[SOUL[x]].Base.MAGIC+listOfSouls[SOUL[y]].Base.MAGIC)/1.5,
-					},
-					Awakening: {
-						HP: (listOfSouls[SOUL[x]].Awakening.HP+listOfSouls[SOUL[y]].Awakening.HP-2)/2+1,
-						ATK: (listOfSouls[SOUL[x]].Awakening.ATK+listOfSouls[SOUL[y]].Awakening.ATK-2)/2+1,
-						SPD: (listOfSouls[SOUL[x]].Awakening.SPD+listOfSouls[SOUL[y]].Awakening.SPD-2)/2+1,
-						DEF: (listOfSouls[SOUL[x]].Awakening.DEF+listOfSouls[SOUL[y]].Awakening.DEF-2)/1.5+1,
-						CHARGE: (listOfSouls[SOUL[x]].Awakening.CHARGE+listOfSouls[SOUL[y]].Awakening.CHARGE-2)/1.5+1,
-						HEAL: (listOfSouls[SOUL[x]].Awakening.HEAL+listOfSouls[SOUL[y]].Awakening.HEAL)/1.5,
-						MAGIC: (listOfSouls[SOUL[x]].Awakening.MAGIC+listOfSouls[SOUL[y]].Awakening.MAGIC)/1.5,
-					},
-					COLOR: color,
-					FUSION: true
-				}})
+				if(((listOfSouls[SOUL[x]].HATE && SOUL[y]=="HATE") || (listOfSouls[SOUL[y]].HATE && SOUL[x]=="HATE")) && xPlaceholder=="NULL" && yPlaceholder=="NULL"){
+					alert("You can't just add more HATE to it.")
+					return 0
+				}
+				if(((listOfSouls[SOUL[x]].HATEUSED && SOUL[y]=="HATE") || (listOfSouls[SOUL[y]].HATEUSED && SOUL[x]=="HATE")) && xPlaceholder=="NULL" && yPlaceholder=="NULL"){
+					alert("You have already inverted this SOUL trait before.")
+					return 0
+				}
+				if(SOUL[x] == "HATE" || SOUL[y] == "HATE"){
+					if(listOfSouls[SOUL[x]].ANTIDOTE||listOfSouls[SOUL[y]].ANTIDOTE){
+						alert("DETEMMIENATION was apparently too strong to obey HATE's power")
+						return 0
+					}
+					if(listOfSouls[SOUL[x]].TRUCK||listOfSouls[SOUL[y]].TRUCK){
+						alert("Unsurprisingly, you just got ran over by a glydertruck.")
+						return 0
+					}
+					let invertedSOUL = listOfSouls[SOUL[SOUL[x] == "HATE"?y:x]]
+					let invertedStuff = [SOUL[x]=="HATE"?["ANIMOSITY","FEAR","CORRUPTION","CRUELTY","RECKLESSNESS","DESPAIR","APATHY","FUCK","FUCK2"][y]:["ANIMOSITY","FEAR","CORRUPTION","CRUELTY","RECKLESSNESS","DESPAIR","APATHY","FUCK","FUCK2"][x]]
+					switch(invertedStuff[0]){
+						case "ANIMOSITY":
+							invertedStuff[1] = "darkred";
+							break;
+						case "FEAR":
+							invertedStuff[1] = "chocolate";
+							break;
+						case "CORRUPTION":
+							invertedStuff[1] = "darkgoldenrod";
+							break;
+						case "CRUELTY":
+							invertedStuff[1] = "darkgreen";
+							break;
+						case "RECKLESSNESS":
+							invertedStuff[1] = "darkcyan";
+							break;
+						case "DESPAIR":
+							invertedStuff[1] = "darkblue";
+							break;
+						case "APATHY":
+							invertedStuff[1] = "darkviolet";
+							break;
+					}
+					Object.assign(listOfSouls, 
+						{[invertedStuff[0]]: {
+							Base: {
+								HP: (listOfSouls[SOUL[x]].Base.HP-1)/2+1+(invertedSOUL.Base.HEAL*20),
+								ATK: (listOfSouls[SOUL[x]].Base.ATK-1)/2+1+(invertedSOUL.Base.DEF-1),
+								SPD: (listOfSouls[SOUL[x]].Base.SPD-1)/2+1+(invertedSOUL.Base.CHARGE-1),
+								DEF: (listOfSouls[SOUL[x]].Base.DEF-1)/2+1+(invertedSOUL.Base.ATK-1),
+								CHARGE: (listOfSouls[SOUL[x]].Base.CHARGE-1)/2+1+(invertedSOUL.Base.SPD-1),
+								HEAL: listOfSouls[SOUL[x]].Base.HEAL+((invertedSOUL.Base.HP-1)/20),
+								MAGIC: listOfSouls[SOUL[x]].Base.MAGIC,
+							},
+							Awakening: {
+								HP: (listOfSouls[SOUL[x]].Awakening.HP-1)/2+1+(invertedSOUL.Awakening.HEAL*20),
+								ATK: (listOfSouls[SOUL[x]].Awakening.ATK-1)/2+1+(invertedSOUL.Awakening.DEF-1),
+								SPD: (listOfSouls[SOUL[x]].Awakening.SPD-1)/2+1+(invertedSOUL.Awakening.CHARGE-1),
+								DEF: (listOfSouls[SOUL[x]].Awakening.DEF-1)/2+1+(invertedSOUL.Awakening.ATK-1),
+								CHARGE: (listOfSouls[SOUL[x]].Awakening.CHARGE-1)/2+1+(invertedSOUL.Awakening.SPD-1),
+								HEAL: listOfSouls[SOUL[x]].Awakening.HEAL+((invertedSOUL.Awakening.HP-1)/20)-0.05,
+								MAGIC: listOfSouls[SOUL[x]].Awakening.MAGIC,
+							},
+							COLOR: `${invertedStuff[1]}`,
+							DESCRIPTION: `An inverted version of ${SOUL[x]} trait`,
+							FUSION: false,
+							HATE: true
+					}})
+					Object.assign(listOfSouls[SOUL[x]],
+						{HATEUSED: true
+					})
+				}
+				else{
+					Object.assign(listOfSouls, 
+					{[`${SOUL[x]} + ${SOUL[y]}`]: {
+						Base: {
+							HP: (listOfSouls[SOUL[x]].Base.HP+listOfSouls[SOUL[y]].Base.HP-2)/2+1,
+							ATK: (listOfSouls[SOUL[x]].Base.ATK+listOfSouls[SOUL[y]].Base.ATK-2)/2+1,
+							SPD: (listOfSouls[SOUL[x]].Base.SPD+listOfSouls[SOUL[y]].Base.SPD-2)/2+1,
+							DEF: (listOfSouls[SOUL[x]].Base.DEF+listOfSouls[SOUL[y]].Base.DEF-2)/1.5+1,
+							CHARGE: (listOfSouls[SOUL[x]].Base.CHARGE+listOfSouls[SOUL[y]].Base.CHARGE-2)/1.5+1,
+							HEAL: (listOfSouls[SOUL[x]].Base.HEAL+listOfSouls[SOUL[y]].Base.HEAL)/1.5,
+							MAGIC: (listOfSouls[SOUL[x]].Base.MAGIC+listOfSouls[SOUL[y]].Base.MAGIC)/1.5,
+						},
+						Awakening: {
+							HP: (listOfSouls[SOUL[x]].Awakening.HP+listOfSouls[SOUL[y]].Awakening.HP-2)/2+1,
+							ATK: (listOfSouls[SOUL[x]].Awakening.ATK+listOfSouls[SOUL[y]].Awakening.ATK-2)/2+1,
+							SPD: (listOfSouls[SOUL[x]].Awakening.SPD+listOfSouls[SOUL[y]].Awakening.SPD-2)/2+1,
+							DEF: (listOfSouls[SOUL[x]].Awakening.DEF+listOfSouls[SOUL[y]].Awakening.DEF-2)/1.5+1,
+							CHARGE: (listOfSouls[SOUL[x]].Awakening.CHARGE+listOfSouls[SOUL[y]].Awakening.CHARGE-2)/1.5+1,
+							HEAL: (listOfSouls[SOUL[x]].Awakening.HEAL+listOfSouls[SOUL[y]].Awakening.HEAL)/1.5,
+							MAGIC: (listOfSouls[SOUL[x]].Awakening.MAGIC+listOfSouls[SOUL[y]].Awakening.MAGIC)/1.5,
+						},
+						COLOR: color,
+						FUSION: true
+					}})
+				}
 				SOUL = Object.keys(listOfSouls)
 				donkeyKong()
 			}
 		}
 		
+		fuseSOULs(0,9,"white","")
+		fuseSOULs(1,9,"white","")
+		fuseSOULs(2,9,"white","")
+		fuseSOULs(3,9,"white","")
+		fuseSOULs(4,9,"white","")
+		fuseSOULs(5,9,"white","")
+		fuseSOULs(6,9,"white","")
+		
 		function fuseALLSOULSBro(){
-			for(let i=0;i<10;i++){
-				for(let v=i+1;v<10;v++){
+			for(let i=0;i<17;i++){
+				for(let v=i+1;v<17;v++){
 				let x=i
 				let y=v
 				let color="white"
-				if(listOfSouls[`${SOUL[x]} + ${SOUL[y]}`])
+				if(SOUL.includes(`${SOUL[x]} + ${SOUL[y]}`)||SOUL.includes(`${SOUL[y]} + ${SOUL[x]}`))
+					continue
+				if(SOUL[x]=="HATE"||SOUL[y]=="HATE")
+					continue
+				if(((listOfSouls[SOUL[x]].ANTITODE || listOfSouls[SOUL[x]].TRUCK) && SOUL[y]=="HATE") || ((listOfSouls[SOUL[y]].ANTITODE || listOfSouls[SOUL[y]].TRUCK) && SOUL[x]=="HATE"))
 					continue
 				Object.assign(listOfSouls, 
 					{[`${SOUL[x]} + ${SOUL[y]}`]: {
